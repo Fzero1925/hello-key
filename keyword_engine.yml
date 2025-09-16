@@ -1,0 +1,22 @@
+# keyword_engine.yml — tunable parameters for Keyword Engine v2
+window_recent_ratio: 0.3
+thresholds:
+  opportunity: 70
+  search_volume: 10000
+  urgency: 0.8
+weights:
+  T: 0.35  # Trend weight
+  I: 0.30  # Intent weight
+  S: 0.15  # Seasonality weight
+  F: 0.20  # Site fit weight
+  D_penalty: 0.6  # Difficulty penalty
+adsense:
+  ctr_serp: 0.25
+  click_share_rank: 0.35
+  rpm_usd: 10
+amazon:
+  ctr_to_amazon: 0.12
+  cr: 0.04
+  aov_usd: 80
+  commission: 0.03
+mode: max  # max | sum

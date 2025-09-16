@@ -1,0 +1,22 @@
+api_credentials:
+  reddit_client_id: ${KEYWORD_TOOL_REDDIT_CLIENT_ID}
+  reddit_client_secret: ${KEYWORD_TOOL_REDDIT_CLIENT_SECRET}
+  telegram_bot_token: ${KEYWORD_TOOL_TELEGRAM_BOT_TOKEN}
+  telegram_chat_id: ${KEYWORD_TOOL_TELEGRAM_CHAT_ID}
+  youtube_api_key: ${KEYWORD_TOOL_YOUTUBE_API_KEY}
+data_sources:
+  cache_ttl_hours: 1
+  enable_fallback: true
+  user_agents:
+    general: KeywordTool/1.0
+    reddit: KeywordTool-Reddit/1.0
+    youtube: KeywordTool-YouTube/1.0
+monitoring:
+  alert_on_failures: true
+  enable_metrics: true
+  report_interval_hours: 24
+retry_settings:
+  backoff_factor: 1.0
+  max_attempts: 3
+  timeout_seconds: 30
+  total_timeout_minutes: 5
