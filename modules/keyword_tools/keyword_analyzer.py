@@ -562,16 +562,16 @@ class KeywordAnalyzer:
 
         return min(1.0, max(0.0, seasonality))
 
-    def _identify_intent_words(self, keyword: str) -> int:
-        """识别商业意图词汇数量"""
+    def _identify_intent_words(self, keyword: str) -> List[str]:
+        """识别商业意图词汇列表"""
         keyword_lower = keyword.lower()
-        intent_count = 0
+        intent_words = []
 
         for indicator in self.commercial_indicators:
             if indicator in keyword_lower:
-                intent_count += 1
+                intent_words.append(indicator)
 
-        return intent_count
+        return intent_words
 
     def _get_difficulty_label(self, difficulty_score: float) -> str:
         """获取难度标签"""

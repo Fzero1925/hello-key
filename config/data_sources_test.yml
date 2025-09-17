@@ -1,0 +1,101 @@
+# 数据源测试配置文件
+# 用于测试新的数据源架构
+
+data_sources:
+  rss:
+    enabled: true
+    max_age_hours: 24
+    min_relevance: 0.3
+    request_timeout: 10
+    request_delay: 1
+    feeds:
+      engadget:
+        url: "https://www.engadget.com/rss.xml"
+        name: "Engadget"
+        smart_home_keywords:
+          - "smart"
+          - "home automation"
+          - "connected"
+          - "wifi"
+          - "bluetooth"
+
+      cnet:
+        url: "https://www.cnet.com/rss/news/"
+        name: "CNET News"
+        smart_home_keywords:
+          - "smart home"
+          - "home tech"
+          - "automation"
+          - "security camera"
+          - "robot vacuum"
+
+      ars_technica:
+        url: "https://feeds.arstechnica.com/arstechnica/index/"
+        name: "Ars Technica"
+        smart_home_keywords:
+          - "home automation"
+          - "iot security"
+          - "smart device"
+          - "privacy"
+
+      techcrunch:
+        url: "https://techcrunch.com/feed/"
+        name: "TechCrunch"
+        smart_home_keywords:
+          - "smart home"
+          - "iot"
+          - "connected devices"
+          - "home automation"
+          - "smart tech"
+
+      wired:
+        url: "https://www.wired.com/feed/"
+        name: "WIRED"
+        smart_home_keywords:
+          - "smart home"
+          - "gadgets"
+          - "security"
+          - "automation"
+          - "iot"
+
+      digital_trends:
+        url: "https://www.digitaltrends.com/feed/"
+        name: "Digital Trends"
+        smart_home_keywords:
+          - "smart home"
+          - "home theater"
+          - "security systems"
+          - "smart appliances"
+
+      android_central:
+        url: "https://www.androidcentral.com/feed"
+        name: "Android Central"
+        smart_home_keywords:
+          - "android"
+          - "google assistant"
+          - "smart home"
+          - "nest"
+          - "automation"
+
+      tech_radar:
+        url: "https://www.techradar.com/rss"
+        name: "TechRadar"
+        smart_home_keywords:
+          - "smart home"
+          - "best"
+          - "reviews"
+          - "buying guides"
+          - "tech news"
+
+  # 其他数据源暂时禁用
+  reddit:
+    enabled: false
+
+  google_trends:
+    enabled: false
+
+  youtube:
+    enabled: false
+
+  amazon:
+    enabled: false

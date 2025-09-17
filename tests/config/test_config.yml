@@ -1,0 +1,149 @@
+# 关键词获取功能测试配置
+# 这个配置专门用于数据源测试，包含测试参数和预期结果
+
+# 测试环境配置
+test_environment:
+  cache_dir: "data/test_cache"
+  timeout: 30
+  max_retries: 3
+  test_categories:
+    - "smart_plugs"
+    - "smart_lighting"
+    - "general"
+
+# 数据源配置
+data_sources:
+  # RSS数据源测试配置
+  rss:
+    enabled: true
+    max_age_hours: 24
+    min_relevance: 0.3
+    request_timeout: 10
+    request_delay: 1
+    test_feeds:
+      techcrunch:
+        url: 'https://techcrunch.com/feed/'
+        name: 'TechCrunch'
+        expected_min_items: 3
+        smart_home_keywords: ['smart home', 'iot', 'smart tech', 'alexa', 'google home']
+      engadget:
+        url: 'https://www.engadget.com/rss.xml'
+        name: 'Engadget'
+        expected_min_items: 3
+        smart_home_keywords: ['smart', 'tech', 'device', 'home automation']
+
+  # Google Trends数据源测试配置
+  google_trends:
+    enabled: false  # 默认禁用，避免API限制
+    request_delay: 5
+    region: 'US'
+    test_queries:
+      - keyword: "smart plug"
+        expected_trend_data: true
+        timeframe: "today 3-m"
+      - keyword: "IoT devices"
+        expected_trend_data: true
+        timeframe: "today 1-m"
+    max_requests_per_test: 2
+
+  # Reddit数据源测试配置
+  reddit:
+    enabled: false  # 需要API密钥才能启用
+    client_id: ""  # 从环境变量获取
+    client_secret: ""  # 从环境变量获取
+    user_agent: "KeywordAnalyzer-Test/1.0"
+    request_delay: 2
+    test_subreddits:
+      - name: "smarthome"
+        expected_min_posts: 5
+        categories: ["smart_plugs", "smart_lighting"]
+      - name: "homeautomation"
+        expected_min_posts: 3
+        categories: ["general"]
+
+# 测试用例配置
+test_cases:
+  # 基础连接测试
+  connection_test:
+    timeout: 15
+    required_success_rate: 0.8
+
+  # 关键词获取测试
+  keyword_extraction:
+    min_keywords_per_source: 3
+    max_keywords_per_test: 20
+    required_fields: ["keyword", "category", "source", "confidence"]
+    min_confidence: 0.1
+
+  # 话题获取测试
+  topic_extraction:
+    min_topics_per_source: 2
+    max_topics_per_test: 10
+    required_fields: ["title", "category", "trending_score", "url"]
+    min_trending_score: 0.1
+
+  # 缓存测试
+  cache_test:
+    test_cache_hit: true
+    test_cache_expiry: true
+    cache_validation: true
+
+  # 性能测试
+  performance_test:
+    max_response_time_seconds: 30
+    max_memory_usage_mb: 500
+    concurrent_requests: 3
+
+# 预期结果验证
+validation:
+  # 数据质量验证
+  data_quality:
+    min_keyword_length: 2
+    max_keyword_length: 100
+    invalid_chars: ["<", ">", "&", "script"]
+
+  # 内容相关性验证
+  relevance:
+    smart_home_keywords:
+      - "smart"
+      - "home"
+      - "automation"
+      - "iot"
+      - "alexa"
+      - "google"
+      - "device"
+
+  # 输出格式验证
+  format:
+    required_keyword_fields: ["keyword", "category", "source", "confidence", "timestamp"]
+    required_topic_fields: ["title", "category", "trending_score", "url", "timestamp"]
+
+# 错误处理测试
+error_handling:
+  # 网络错误模拟
+  network_errors:
+    test_timeout: true
+    test_connection_refused: true
+    test_dns_failure: true
+
+  # API错误模拟
+  api_errors:
+    test_rate_limit: true
+    test_unauthorized: true
+    test_invalid_response: true
+
+# 测试报告配置
+reporting:
+  output_format: "detailed"  # simple, detailed, json
+  save_results: true
+  results_dir: "tests/results"
+  include_debug_info: true
+  generate_summary: true
+
+# 环境变量映射
+env_vars:
+  reddit_client_id: "KEYWORD_TOOL_REDDIT_CLIENT_ID"
+  reddit_client_secret: "KEYWORD_TOOL_REDDIT_CLIENT_SECRET"
+  youtube_api_key: "KEYWORD_TOOL_YOUTUBE_API_KEY"
+  http_proxy: "KEYWORD_TOOL_HTTP_PROXY"
+  https_proxy: "KEYWORD_TOOL_HTTPS_PROXY"
